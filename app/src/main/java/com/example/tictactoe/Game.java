@@ -16,4 +16,19 @@ public class Game {
         playerOneTurn = true;
         gameOver = false;
     }
+
+    public TileState choose(int row, int column) {
+        TileState TileState = board[row][column];
+        if(TileState == TileState.BLANK) {
+            if(playerOneTurn) {
+                return TileState.CROSS;
+            }
+            else {
+                return TileState.CIRCLE;
+            }
+        }
+        else {
+            return TileState.INVALID;
+        }
+    }
 }
