@@ -21,9 +21,12 @@ public class Game {
         TileState TileState = board[row][column];
         if(TileState == TileState.BLANK) {
             if(playerOneTurn) {
+                playerOneTurn = false;
                 return TileState.CROSS;
+
             }
             else {
+                playerOneTurn = true;
                 return TileState.CIRCLE;
             }
         }
