@@ -7,6 +7,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     Game game;
+    private int[] buttons = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5,
+            R.id.button6, R.id.button7, R.id.button8, R.id.button9};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +72,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void getGameState()
     {
-        System.out.println("gewonnen: " + game.won());
+        GameState winner = game.won();
+        if(winner != GameState.IN_PROGRESS) {
+            for (int i = 0; i < buttons.length; i++) {
+                findViewById(buttons[i]).setEnabled(false);
+            }
+            if(winner == GameState.DRAW) {
+                findViewById(R.id.draw).setVisibility(View.VISIBLE);
+            }
+            else if(winner == GameState.PLAYER_ONE) {
+                findViewById(R.id.player1).setVisibility(View.VISIBLE);
+            }
+            else {
+                findViewById(R.id.player2).setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     public void resetClicked(View view) {
+        setContentView(R.layout.activity_main);
         game = new Game();
     }
 }

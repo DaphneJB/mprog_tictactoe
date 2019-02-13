@@ -58,15 +58,15 @@ public class Game {
         int j = 0;
         int k = 1;
         int l = 2;
-        int winnaar = 0;
+        int winner = 0;
         TileState state = TileState.BLANK;
         for(int i=0; i < 3; i+=2) {
             if(board[i][i].equals(board[j][k]) && board[j][k].equals(board[0][2]) && board[0][2].equals(board[i][i])) {
-                winnaar++;
+                winner++;
                 state = board[i][i];
             }
             if (board[i][i].equals(board[k][1]) && board[k][1].equals(board[2][l]) && board[2][l].equals(board[i][i])){
-                winnaar++;
+                winner++;
                 state = board[i][i];
             }
                 j++;
@@ -74,18 +74,18 @@ public class Game {
                 l-=2;
         }
         if(board[0][0].equals(board[1][0]) && board[1][0].equals(board[2][0]) && board[2][0].equals(board[0][0])){
-            winnaar++;
+            winner++;
             state = board[0][0];
         }
         if(board[1][0].equals(board[1][1]) && board[1][1].equals(board[1][2]) && board[1][2].equals(board[1][0])) {
-            winnaar++;
+            winner++;
             state = board[1][0];
         }
         if (board[0][1].equals(board[1][1]) && board[1][1].equals(board[2][1]) && board[2][1].equals(board[0][1])){
-            winnaar++;
+            winner++;
             state = board[0][1];
         }
-        if(winnaar == 0 || winnaar > 1)
+        if(winner == 0 || winner > 1)
         {
             return GameState.DRAW;
         }
@@ -97,6 +97,5 @@ public class Game {
                 return GameState.PLAYER_TWO;
             }
         }
-
     }
 }
