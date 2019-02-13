@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         game = new Game();
+        if(savedInstanceState != null) {
+            game.setState(0,0,savedInstanceState.getSerializable("button1"));
+            game.setState(0,1,savedInstanceState.getSerializable("button2"));
+            game.setState(0,2,savedInstanceState.getSerializable("button3"));
+            game.setState(1,0,savedInstanceState.getSerializable("button4"));
+            game.setState(1,1,savedInstanceState.getSerializable("button5"));
+            game.setState(1,2,savedInstanceState.getSerializable("button6"));
+            game.setState(2,0,savedInstanceState.getSerializable("button7"));
+            game.setState(2,1,savedInstanceState.getSerializable("button8"));
+            game.setState(2,2,savedInstanceState.getSerializable("button9"));
+        }
     }
 
     public void tileClicked(View view) {
@@ -93,4 +105,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         game = new Game();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("button1", game.getState(0,0));
+        outState.putSerializable("button2", game.getState(0,1));
+        outState.putSerializable("button3", game.getState(0,2));
+        outState.putSerializable("button4", game.getState(1,0));
+        outState.putSerializable("button5", game.getState(1,1));
+        outState.putSerializable("button6", game.getState(1,2));
+        outState.putSerializable("button7", game.getState(2,0));
+        outState.putSerializable("button8", game.getState(2,1));
+        outState.putSerializable("button9", game.getState(2,2));
+    }
+
 }
