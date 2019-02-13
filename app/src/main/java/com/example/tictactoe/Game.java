@@ -35,4 +35,68 @@ public class Game {
             return TileState.INVALID;
         }
     }
+
+    public GameState won() {
+        int move = 0;
+        for(int i = 0; i < BOARD_SIZE; i++) {
+            for(int j = 0; j < BOARD_SIZE; j++) {
+                if(board[i][j] != TileState.BLANK)
+                    move++;
+            }
+        }
+        if(move != BOARD_SIZE * 3) {
+            return GameState.IN_PROGRESS;
+        }
+        else {
+            System.out.println("status: " + endGame());
+            return endGame();
+        }
+    }
+
+    public GameState endGame()
+    {
+        int j = 0;
+        int k = 1;
+        int l = 2;
+        int winnaar = 0;
+        TileState state = TileState.BLANK;
+        for(int i=0; i < 3; i+=2) {
+            if(board[i][i].equals(board[j][k]) && board[j][k].equals(board[0][2]) && board[0][2].equals(board[i][i])) {
+                winnaar++;
+                state = board[i][i];
+            }
+            if (board[i][i].equals(board[k][1]) && board[k][1].equals(board[2][l]) && board[2][l].equals(board[i][i])){
+                winnaar++;
+                state = board[i][i];
+            }
+                j++;
+                k++;
+                l-=2;
+        }
+        if(board[0][0].equals(board[1][0]) && board[1][0].equals(board[2][0]) && board[2][0].equals(board[0][0])){
+            winnaar++;
+            state = board[0][0];
+        }
+        if(board[1][0].equals(board[1][1]) && board[1][1].equals(board[1][2]) && board[1][2].equals(board[1][0])) {
+            winnaar++;
+            state = board[1][0];
+        }
+        if (board[0][1].equals(board[1][1]) && board[1][1].equals(board[2][1]) && board[2][1].equals(board[0][1])){
+            winnaar++;
+            state = board[0][1];
+        }
+        if(winnaar == 0 || winnaar > 1)
+        {
+            return GameState.DRAW;
+        }
+        else {
+            if(state == TileState.CROSS){
+                return GameState.PLAYER_ONE;
+            }
+            else{
+                return GameState.PLAYER_TWO;
+            }
+        }
+
+    }
 }

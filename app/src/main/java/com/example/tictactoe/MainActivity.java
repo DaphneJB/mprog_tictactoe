@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.Invalid).setVisibility(View.VISIBLE);
                 break;
         }
+        getGameState();
+    }
+
+    public void getGameState()
+    {
+        System.out.println("gewonnen: " + game.won());
     }
 
     public void resetClicked(View view) {
