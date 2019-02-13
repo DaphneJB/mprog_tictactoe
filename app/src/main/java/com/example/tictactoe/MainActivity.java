@@ -53,13 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch(state) {
             case CROSS:
+                findViewById(R.id.Invalid).setVisibility(View.INVISIBLE);
                 button.setText("X");
                 break;
             case CIRCLE:
+                findViewById(R.id.Invalid).setVisibility(View.INVISIBLE);
                 button.setText("0");
                 break;
             case INVALID:
-                // do something different
+                System.out.println("check");
+                findViewById(R.id.Invalid).setVisibility(View.VISIBLE);
                 break;
         }
     }

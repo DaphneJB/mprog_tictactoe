@@ -18,15 +18,16 @@ public class Game {
     }
 
     public TileState choose(int row, int column) {
-        TileState TileState = board[row][column];
-        if(TileState == TileState.BLANK) {
+        TileState tile = board[row][column];
+        if(tile == TileState.BLANK) {
             if(playerOneTurn) {
                 playerOneTurn = false;
+                board[row][column] = TileState.CROSS;
                 return TileState.CROSS;
-
             }
             else {
                 playerOneTurn = true;
+                board[row][column] = TileState.CIRCLE;
                 return TileState.CIRCLE;
             }
         }
