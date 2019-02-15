@@ -14,11 +14,10 @@ public class Game implements Serializable {
         for(int i=0; i<BOARD_SIZE; i++)
             for(int j=0; j<BOARD_SIZE; j++)
                 board[i][j] = TileState.BLANK;
-
         playerOneTurn = true;
     }
 
-    public TileState choose(int row, int column) {
+    public TileState turn(int row, int column) {
         TileState tile = board[row][column];
         if(tile == TileState.BLANK) {
             if(playerOneTurn) {
@@ -107,18 +106,5 @@ public class Game implements Serializable {
 
     public TileState getState(int row, int column) {
         return board[row][column];
-    }
-
-    public void setState(int row, int column, Serializable tile) {
-        if(tile == TileState.BLANK) {
-            board[row][column] = TileState.BLANK;
-        }
-        else if(tile == TileState.CIRCLE)
-        {
-            board[row][column] = TileState.CIRCLE;
-        }
-        else {
-            board[row][column] = TileState.CROSS;
-        }
     }
 }

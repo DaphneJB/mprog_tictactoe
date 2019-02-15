@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         Button button = (Button) view;
-        TileState state = game.choose(row, column);
+        TileState state = game.turn(row, column);
 
         switch(state) {
             case CROSS:
