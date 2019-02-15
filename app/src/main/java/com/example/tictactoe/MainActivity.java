@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     Game game;
-    private int[] buttons = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5,
-            R.id.button6, R.id.button7, R.id.button8, R.id.button9};
+    private int[][] buttons = {{R.id.button1, R.id.button2, R.id.button3 }, { R.id.button4, R.id.button5,
+            R.id.button6 }, {R.id.button7, R.id.button8, R.id.button9}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,15 +17,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         game = new Game();
         if(savedInstanceState != null) {
-            game.setState(0,0,savedInstanceState.getSerializable("button1"));
-            game.setState(0,1,savedInstanceState.getSerializable("button2"));
-            game.setState(0,2,savedInstanceState.getSerializable("button3"));
-            game.setState(1,0,savedInstanceState.getSerializable("button4"));
-            game.setState(1,1,savedInstanceState.getSerializable("button5"));
-            game.setState(1,2,savedInstanceState.getSerializable("button6"));
-            game.setState(2,0,savedInstanceState.getSerializable("button7"));
-            game.setState(2,1,savedInstanceState.getSerializable("button8"));
-            game.setState(2,2,savedInstanceState.getSerializable("button9"));
+            game = (Game) savedInstanceState.getSerializable("game");
+            getButtonState();
+        }
+    }
+
+    public void getButtonState() {
+        TileState states;
+        for(int i = 0; i < buttons.length; i++)
+        {
+            for(int j = 0; j <buttons.length; j++) {
+                states = game.getState(i, j);
+                Button button = findViewById(buttons[i][j]);
+                if(states == TileState.CIRCLE) {
+                    button.setText("0");
+                }
+                else if(states == TileState.CROSS) {
+                    button.setText("X");
+                }
+            }
         }
     }
 
@@ -75,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 button.setText("0");
                 break;
             case INVALID:
-                System.out.println("check");
                 findViewById(R.id.Invalid).setVisibility(View.VISIBLE);
                 break;
         }
@@ -87,7 +96,10 @@ public class MainActivity extends AppCompatActivity {
         GameState winner = game.won();
         if(winner != GameState.IN_PROGRESS) {
             for (int i = 0; i < buttons.length; i++) {
-                findViewById(buttons[i]).setEnabled(false);
+                for(int j = 0; j < buttons.length; j++) {
+                    findViewById(buttons[i][j]).setEnabled(false);
+                }
+
             }
             if(winner == GameState.DRAW) {
                 findViewById(R.id.draw).setVisibility(View.VISIBLE);
@@ -109,15 +121,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("button1", game.getState(0,0));
-        outState.putSerializable("button2", game.getState(0,1));
-        outState.putSerializable("button3", game.getState(0,2));
-        outState.putSerializable("button4", game.getState(1,0));
-        outState.putSerializable("button5", game.getState(1,1));
-        outState.putSerializable("button6", game.getState(1,2));
-        outState.putSerializable("button7", game.getState(2,0));
-        outState.putSerializable("button8", game.getState(2,1));
-        outState.putSerializable("button9", game.getState(2,2));
+        outState.putSerializable("game", game);
     }
-
 }
